@@ -1,14 +1,19 @@
 import uvicorn
 from fastapi import Depends, FastAPI
+from sqlalchemy import text
+from sqlalchemy.orm import Session
 
-from app.config import Settings
-from app.dependencies import get_settings
+from app.config import Settings, get_settings
+from app.dependencies import get_db
 
 app = FastAPI(title="chat-aggregator-backend")
 
 
 @app.get("/health")
-def health(_: Settings = Depends(get_settings)) -> dict[str, str]:
+def health(
+    db: Session = Depends(get_db), _: Settings = Depends(get_settings)
+) -> dict[str, str]:
+    db.execute(text("SELECT 1"))
     return {"status": "ok"}
 
 

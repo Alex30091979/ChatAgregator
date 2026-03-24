@@ -1,9 +1,15 @@
-from functools import lru_cache
+from collections.abc import Generator
 
-from app.config import Settings
+from sqlalchemy.orm import Session
+
+from app.config import Settings, get_settings
+from app.db.session import SessionLocal
 
 
-@lru_cache
-def get_settings() -> Settings:
-    return Settings()
+def get_db() -> Generator[Session, None, None]:
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
