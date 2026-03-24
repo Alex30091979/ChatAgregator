@@ -40,6 +40,10 @@ class User(Base):
 
     messages: Mapped[list["Message"]] = relationship(back_populates="user")
     audit_logs: Mapped[list["AuditLog"]] = relationship(back_populates="user")
+    assigned_chats: Mapped[list["Chat"]] = relationship(
+        back_populates="operator",
+        foreign_keys="Chat.operator_id",
+    )
 
 
 class Client(Base):
@@ -61,7 +65,9 @@ class Chat(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     client_id: Mapped[int] = mapped_column(ForeignKey("clients.id"), nullable=False, index=True)
+    operator_id: Mapped[int | None] = mapped_column(ForeignKey("users.id"), nullable=True, index=True)
     provider: Mapped[str] = mapped_column(String(32), nullable=False, index=True)
+    status: Mapped[str] = mapped_column(String(32), nullable=False, server_default="new", index=True)
     external_chat_id: Mapped[str | None] = mapped_column(String(128), nullable=True, index=True)
     title: Mapped[str | None] = mapped_column(String(255), nullable=True)
     created_at: Mapped[datetime] = mapped_column(
@@ -69,6 +75,11 @@ class Chat(Base):
     )
 
     client: Mapped["Client"] = relationship(back_populates="chats")
+    operator: Mapped["User | None"] = relationship(
+        "User",
+        back_populates="assigned_chats",
+        foreign_keys=[operator_id],
+    )
     messages: Mapped[list["Message"]] = relationship(back_populates="chat")
 
 

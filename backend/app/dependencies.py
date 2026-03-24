@@ -42,8 +42,13 @@ def get_audit_service(db: Session = Depends(get_db)) -> AuditService:
 
 def get_chat_service(db: Session = Depends(get_db)) -> ChatService:
     chat_repository = ChatRepository(db)
+    user_repository = UserRepository(db)
     audit_service = AuditService(db)
-    return ChatService(chat_repository=chat_repository, audit_service=audit_service)
+    return ChatService(
+        chat_repository=chat_repository,
+        user_repository=user_repository,
+        audit_service=audit_service,
+    )
 
 
 def get_message_service(db: Session = Depends(get_db)) -> MessageService:
