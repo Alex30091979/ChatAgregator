@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дорожная карта — Банкрот Консалт</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: #F0F2F5;
+            padding: 30px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+            overflow-x: auto;
+            padding: 24px 0 30px 0;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #3B1A7A 0%, #0A4D7A 100%);
+            padding: 24px 28px;
+            color: white;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.12);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+        .title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+        .sub {
+            font-size: 0.8rem;
+            opacity: 0.85;
+        }
+
+        .legend {
+            display: flex;
+            gap: 24px;
+            padding: 16px 24px;
+            background: #F8F9FA;
+            border-bottom: 1px solid #E5E7EB;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        .badge {
+            width: 14px;
+            height: 14px;
+            border-radius: 4px;
+        }
+        .badge-lk { background: #5B2BC6; }
+        .badge-admin { background: #0F6CA8; }
+        .badge-integration { background: #D97706; }
+        .badge-tech { background: #1E3A5F; }
+        .badge-automation { background: #10B981; }
+        .badge-postponed { background: #DC2626; }
+
+        .sprint-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.75rem;
+            min-width: 1200px;
+        }
+        .sprint-table th, .sprint-table td {
+            border: 1px solid #E5E7EB;
+            padding: 12px 10px;
+            vertical-align: top;
+        }
+        .sprint-table th {
+            background: #F8F9FA;
+            font-weight: 700;
+            text-align: center;
+        }
+        .sprint-title {
+            font-weight: 700;
+            color: #3B1A7A;
+            font-size: 0.8rem;
+        }
+        .sprint-badge {
+            display: inline-block;
+            background: #5B2BC6;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 20px;
+            font-size: 0.55rem;
+            font-weight: 600;
+            margin-right: 4px;
+        }
+        .date-col {
+            white-space: nowrap;
+            text-align: center;
+        }
+        .duration {
+            font-size: 0.65rem;
+            color: #6B7280;
+            margin-top: 4px;
+        }
+        .tasks-list {
+            font-size: 0.7rem;
+            color: #374151;
+            padding-left: 0;
+            margin: 0;
+            list-style: none;
+        }
+        .tasks-list li {
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .task-title {
+            font-weight: 700;
+            color: #1F2937;
+            display: block;
+            margin-bottom: 2px;
+        }
+        .task-desc {
+            font-size: 0.65rem;
+            color: #6B7280;
+            display: block;
+        }
+        .task-category {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        .result-text {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #1F2937;
+            line-height: 1.4;
+        }
+        .release-col {
+            text-align: center;
+            white-space: nowrap;
+        }
+        .status-success { background: #D1FAE5; color: #059669; font-weight: 600; display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; white-space: nowrap; }
+        .status-info { background: #E0F2FE; color: #0F6CA8; font-weight: 600; display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; white-space: nowrap; }
+        .status-warning { background: #FEF3C7; color: #D97706; font-weight: 600; display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; white-space: nowrap; }
+
+        .gantt-section {
+            margin: 30px 20px 20px 20px;
+            padding: 20px;
+            background: #F8F9FA;
+            border-radius: 16px;
+        }
+        .gantt-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #3B1A7A;
+        }
+        .gantt-wrapper {
+            overflow-x: auto;
+        }
+        .gantt-matrix {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.7rem;
+            min-width: 900px;
+        }
+        .gantt-matrix th, .gantt-matrix td {
+            border: 1px solid #E5E7EB;
+            padding: 10px 8px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .gantt-matrix th {
+            background: #EDE9FE;
+            font-weight: 700;
+        }
+        .gantt-matrix td:first-child {
+            background: #F8F9FA;
+            font-weight: 600;
+            text-align: left;
+        }
+        .dev-box {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            margin: 2px;
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+        .dev-box:hover {
+            transform: scale(1.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .dev-box[data-tooltip]:hover:after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1F2937;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.65rem;
+            white-space: nowrap;
+            z-index: 100;
+            margin-bottom: 8px;
+            pointer-events: none;
+        }
+        .dev-lk { background: #5B2BC6; }
+        .dev-admin { background: #0F6CA8; }
+        .dev-integration { background: #D97706; }
+        .dev-tech { background: #1E3A5F; }
+        .dev-automation { background: #10B981; }
+        .dev-empty { background: #E5E7EB; }
+
+        .total-result {
+            margin: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #3B1A7A08 0%, #0A4D7A08 100%);
+            border-radius: 16px;
+            border-left: 4px solid #3B1A7A;
+        }
+        .total-result h3 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+            color: #3B1A7A;
+        }
+        .total-result p {
+            font-size: 0.75rem;
+            color: #374151;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        .total-result .month-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+            margin: 15px 0;
+        }
+        .month-item {
+            background: white;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid #E5E7EB;
+        }
+        .month-name {
+            font-weight: 700;
+            color: #3B1A7A;
+            margin-bottom: 6px;
+            font-size: 0.7rem;
+        }
+        .month-desc {
+            font-size: 0.65rem;
+            color: #4B5563;
+        }
+
+        .btn-excel {
+            background: #059669;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 20px 20px 0 20px;
+            transition: opacity 0.2s;
+        }
+        .btn-excel:hover { opacity: 0.85; }
+        .footer {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #6B7280;
+            margin-top: 20px;
+            padding: 0 20px;
+        }
+        .total-duration {
+            background: #F0F2F5;
+            padding: 10px 20px;
+            margin: 0 20px 20px 20px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">⚖️</div>
+            <div class="logo-text">Банкрот Консалт</div>
+        </div>
+        <div class="title">Дорожная карта разработки</div>
+        <div class="sub">Личный кабинет + Админ-панель | Автоматизация банкротства</div>
+    </div>
+
+    <div class="legend">
+        <div class="legend-item"><div class="badge badge-lk"></div> Личный кабинет (клиент)</div>
+        <div class="legend-item"><div class="badge badge-admin"></div> Админ-панель</div>
+        <div class="legend-item"><div class="badge badge-integration"></div> Интеграции / Битрикс</div>
+        <div class="legend-item"><div class="badge badge-tech"></div> Технические доработки</div>
+        <div class="legend-item"><div class="badge badge-automation"></div> Автоматизация бизнес процессов</div>
+        <div class="legend-item"><div class="badge badge-postponed"></div> Перенесено</div>
+    </div>
+
+    <table class="sprint-table" id="sprintTable">
+        <thead>
+            <tr>
+                <th style="width:8%">Спринт</th>
+                <th style="width:12%">Даты / Длительность</th>
+                <th style="width:38%">Что входит в спринт</th>
+                <th style="width:22%">Результат спринта</th>
+                <th style="width:8%">Дата релиза</th>
+                <th style="width:12%">Статус</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Спринт 1 -->
+            <tr>
+                <td class="sprint-title"><span class="sprint-badge">Спр.1</span></td>
+                <td class="date-col">10–24 марта 2026<br><span class="duration">2 недели</span></td>
+                <td><ul class="tasks-list"><li><span class="task-category" style="background:#5B2BC6;"></span><span class="task-title">Регистрация в ЛК</span><span class="task-desc">Создание личного кабинета клиента по номеру телефона с подтверждением через SMS/Telegram.</span></li><li><span class="task-category" style="background:#5B2BC6;"></span><span class="task-title">Разработка лендинга</span><span class="task-desc">Создание главной страницы сервиса с описанием услуг и формой подачи заявки.</span></li><li><span class="task-category" style="background:#D97706;"></span><span class="task-title">Интеграция с SMS</span><span class="task-desc">Подключение SMS-провайдера (Билайн) для отправки кодов подтверждения.</span></li><li><span class="task-category" style="background:#5B2BC6;"></span><span class="task-title">Анкета (опросный лист)</span><span class="task-desc">Сбор информации о клиенте: личные данные, доходы, долги, имущество.</span></li><li><span class="task-category" style="background:#5B2BC6;"></span><span class="task-title">Программа рекомендаций</span><span class="task-desc">Отправка приглашения другу с указанием ФИО и телефона.</span></li><li><span class="task-category" style="background:#D97706;"></span><span class="task-title">Автосоздание ЛК / Передача в Битрикс</span><span class="task-desc">Создание Лида в Битрикс с полем «Источник = Регистрация из ЛК».</span></li></ul></td>
+                <td class="result-text">Регистрация в ЛК, лендинг, анкета, передача в Битрикс</td>
+                <td class="release-col">—</td>
+                <td class="status-success">✅ Завершён</td>
+            </tr>
+            <!-- Спринт 2 -->
+            <tr>
+                <td class="sprint-title"><span class="sprint-badge">Спр.2</span></td>
+                <td class="date-col">25 мар – 8 апр 2026<br><span class="duration">2 недели</span></td>
+                <td><ul class="tasks-list"><li><span class="task-category" style="background:#0F6CA8;"></span><span class="task-title">Экран «Клиенты»</span><span class="task-desc">Список клиентов с ФИО, телефоном, статусом дела. Поиск и фильтрация.</span></li><li><span class="task-category" style="background:#0F6CA8;"></span><span class="task-title">Карточка клиента</span><span class="task-desc">Детальный просмотр данных клиента: ФИО, паспорт, ИНН, СНИЛС, анкета.</span></li><li><span class="task-category" style="background:#5B2BC6;"></span><span class="task-title">Страница «Программа рекомендаций» на лендинге</span><span class="task-desc">Публичная страница с описанием условий реферальной программы.</span></li><li><span class="task-category" style="background:#0F6CA8;"></span><span class="task-title">Раздел рекомендации в админ-панели</span><span class="task-desc">Список рекомендаций клиента со статусами.</span></li><li><span class="task-category" style="background:#D97706;"></span><span class="task-title">Статусы из Битрикс</span><span class="task-desc">Получение стадий сделок для прогресс-бара.</span></li><li><span class="task-category" style="background:#1E3A5F;"></span><span class="task-title">Вебсокеты (технич.)</span><span class="task-desc">Обмен данными в реальном времени между ЛК, админкой и Битрикс.</span></li></ul></td>
+                <td class="result-text">Админ-панель, карточка клиента, страница рекомендаций, статусы из Битрикс</td>
+                <td class="release-col">—</td>
+                <td class="status-success">✅ Завершён</td>
+            </tr>
+            <!-- Спринт 3 -->
+            <tr>
+                <td class="sprint-title"><span class="sprint-badge">Спр.3</span></td>
+                <td class="date-col">9–23 апреля 2026<br><span class="duration">2 недели</span></td>
+                <td><ul class="tasks-list"><li><span class="task-category" style="background:#1E3A5F;"></span><span class="task-title">Подготовка к выпуску первой версии</span><span class="task-desc">Настройка дев-платформы, стабильности, инфраструктуры.</span></li><li><span class="task-category" style="background:#5B2BC6;"></span><span class="task-title">Договоры и Акты (ЛК)</span><span class="task-desc">Получение договора оферты, доп. соглашений, актов.</span></li><li><span class="task-category" style="background:#0F6CA8;"></span><span class="task-title">Конструктор договора</span><span class="task-desc">Выбор тарифа, доп. услуг, формирование договора оферты.</span></li><li><span class="task-category" style="background:#1E3A5F;"></span><span class="task-title">Архитектура хранения</span><span class="task-desc">Проектирование БД для хранения персональных данных и документов.</span></li><li><span class="task-category" style="background:#0F6CA8;"></span><span class="task-title">Карта клиента — рекомендации</span><span class="task-desc">Отображение отправленных клиентом рекомендаций и их статусов.</span></li><li><span class="task-category" style="background:#DC2626;"></span><span class="task-title">⏸ Эквайринг (перенесено)</span><span class="task-desc">Анализ API для интеграции с эквайрингом. Перенесено в спринт 4.</span></li></ul></td>
+                <td class="result-text">Конструктор договора, договор в ЛК, архитектура хранения</td>
+                <td class="release-col"><span class="striked-date">21 апреля</span><span class="postponed-note">перенесено</span></td>
+                <td class="status-success">✅ Завершён</td>
+            </tr>
+            <!-- Спринт 4 -->
+            <tr>
+                <td class="sprint-title"><span class="sprint-badge">Спр.4</span></td>
+                <td class="date-col">24 апр – 12 мая 2026<br><span class="duration">2.5 недели</span></td>
+                <td>
+                    <div style="margin-bottom:10px;"><span class="task-title">Выпуск 1 версия ЛК+Админ с интеграцией с Битрикс</span><div class="task-desc">Релиз первой версии платформы — 5 мая 2026. Полностью работающий Личный кабинет и Админ-панель с интеграцией в Битрикс24.</div></div>
+                    <ul class="tasks-list">
+                        <li><span class="task-category" style="background:#D97706;"></span><span class="task-title">Чат с клиентами в ЛК</span><span class="task-desc">Разработка чата на базе Matrix для общения клиента с сотрудниками.</span></li>
+                        <li><span class="task-category" style="background:#0F6CA8;"></span><span class="task-title">Распределение чатов</span><span class="task-desc">Логика перенаправления сообщений: до договора — ОП, после — КС и юристам.</span></li>
+                        <li><span class="task-category" style="background:#0F6CA8;"></span><span class="task-title">Конструктор договора (продолжение)</span><span class="task-desc">Доработка конструктора: архитектура и интерфейс.</span></li>
+                        <li><span class="task-category" style="background:#5B2BC6;"></span><span class="task-title">Получение договора клиентом</span><span class="task-desc">Отображение сформированного договора в ЛК.</span></li>
+                        <li><span class="task-category" style="background:#D97706;"></span><span class="task-title">Эквайринг Т-банк</span><span class="task-desc">Интеграция с эквайрингом Т-банк для приёма онлайн-платежей.</span></li>
+                        <li><span class="task-category" style="background:#D97706;"></span><span class="task-title">Распределение лидов по воронкам</span><span class="task-desc">Перенаправление Лидов по рекомендациям в разные воронки продаж.</span></li>
+                    </ul>
+                </td>
+                <td class="result-text">Чат с клиентами, эквайринг, распределение лидов + релиз версии 1.0</td>
+                <td class="release-col"><strong style="color:#059669;">5 мая 2026</strong></td>
+                <td class="status-info">🔄 В работе (65%)</td>
+            </tr>
+            <!-- Спринт 5: Робот помощник сборщика документов + Онлайн-оплата + Эквайринг -->
+            <tr>
+                <td class="sprint-title"><span class="sprint-badge">Спр.5</span></td>
+                <td class="date-col">13–29 мая 2026<br><span class="duration">2.5 недели</span></td>
+                <td>
+                    <div style="margin-bottom:12px;">
+                        <span class="task-category" style="background:#10B981;"></span>
+                        <span class="task-title">Робот помощник сборщика документов Версия 1</span>
+                        <div class="task-desc" style="margin-top:4px;">
+                            Робот в чатах по сбору документов. Коммуникация с клиентом, список необходимых документов, инструкции где взять и как собрать, автоответы.
+                            Объединение страниц документов — склеивание многостраничных документов в единый файл.
+                            Название документов по чек-листу — автоматическое именование загружаемых файлов согласно чек-листу.
+                            Сбор документов из чата и сохранение на сервере — приём файлов через чат, сохранение на сервер.
+                            Сохранение ссылки на папку с документами в Битрикс — создание ссылки на папку с документами клиента в карточке Битрикс.
+                        </div>
+                    </div>
+                    <ul class="tasks-list">
+                        <li><span class="task-category" style="background:#5B2BC6;"></span><span class="task-title">Получение договора клиентом (продолжение)</span><span class="task-desc">Отображение сформированного договора в ЛК.</span></li>
+                        <li><span class="task-category" style="background:#D97706;"></span><span class="task-title">Эквайринг Т-банк (продолжение)</span><span class="task-desc">Интеграция с эквайрингом Т-банк для приёма онлайн-платежей.</span></li>
+                        <li><span class="task-category" style="background:#5B2BC6;"></span><span class="task-title">Онлайн-оплата карта/СБП</span><span class="task-desc">Оплата по договору оферты банковской картой или через СБП. Оплата «в один клик» нескольких платежей.</span></li>
+                    </ul>
+                </td>
+                <td class="result-text">Робот сборщик документов (версия 1) + Онлайн-оплата + Эквайринг</td>
+                <td class="release-col">—</td>
+                <td class="status-warning">⏳ В плане</td>
+            </tr>
+            <!-- Спринт 6: OCR + Онлайн-оплата (продолжение) + Робот версия 2 -->
+            <tr>
+                <td class="sprint-title"><span class="sprint-badge">Спр.6</span></td>
+                <td class="date-col">1–26 июня 2026<br><span class="duration">3.5 недели</span></td>
+                <td>
+                    <ul class="tasks-list">
+                        <li><span class="task-category" style="background:#0F6CA8;"></span><span class="task-title">Модуль распознавания и валидации документов</span><span class="task-desc">Автоматическая проверка соответствия загруженных документов требованиям качества и формата.</span></li>
+                        <li><span class="task-category" style="background:#10B981;"></span><span class="task-title">Робот помощник версия 2 — Доработки модуля робота сборщика документов</span><span class="task-desc">Подключение робота к валидации документов. Досбор документов по чек-листу.</span></li>
+                        <li><span class="task-category" style="background:#0F6CA8;"></span><span class="task-title">OCR (перенесено из спринта 5)</span><span class="task-desc">Распознавание документов (паспортных данных, номеров СНИЛС/ИНН и др), автоматическое заполнение полей в карточке клиента.</span></li>
+                        <li><span class="task-category" style="background:#5B2BC6;"></span><span class="task-title">Онлайн-оплата карта/СБП (продолжение)</span><span class="task-desc">Оплата по договору оферты банковской картой или через СБП. Оплата «в один клик» нескольких платежей.</span></li>
+                    </ul>
+                </td>
+                <td class="result-text">OCR + валидация + Робот версия 2 + онлайн-оплата</td>
+                <td class="release-col">—</td>
+                <td class="status-warning">⏳ В плане</td>
+            </tr>
+            <!-- Спринт 7 -->
+            <tr>
+                <td class="sprint-title"><span class="sprint-badge">Спр.7</span></td>
+                <td class="date-col">29 июня – 19 июля 2026<br><span class="duration">3 недели</span></td>
+                <td><ul class="tasks-list"><li><span class="task-category" style="background:#5B2BC6;"></span><span class="task-title">Загрузка документов в ЛК (паспорт/СНИЛС/ИНН)</span><span class="task-desc">Функционал загрузки сканов и фото документов (PDF, JPG, PNG). Обязательный набор: паспорт, СНИЛС, ИНН.</span></li><li><span class="task-category" style="background:#5B2BC6;"></span><span class="task-title">Статусы документов</span><span class="task-desc">Отображение статусов: «Загружен» → «Проверяется» → «Проверен» / «Требует исправления».</span></li><li><span class="task-category" style="background:#0F6CA8;"></span><span class="task-title">Проверка документов</span><span class="task-desc">Инструмент для сотрудника: проверка документов, присвоение статуса, запрос на доработку.</span></li><li><span class="task-category" style="background:#5B2BC6;"></span><span class="task-title">Прогресс-бар (доработка статусов)</span><span class="task-desc">Отображение текущего этапа банкротства в ЛК (5 этапов). Статус из Битрикс.</span></li></ul></td>
+                <td class="result-text">Загрузка документов в ЛК, статусы, проверка, прогресс-бар</td>
+                <td class="release-col">—</td>
+                <td class="status-warning">⏳ В плане</td>
+            </tr>
+            <!-- Спринт 8 -->
+            <tr>
+                <td class="sprint-title"><span class="sprint-badge">Спр.8</span></td>
+                <td class="date-col">22 июля – 4 августа 2026<br><span class="duration">2 недели</span></td>
+                <td><ul class="tasks-list"><li><span class="task-category" style="background:#5B2BC6;"></span><span class="task-title">Уведомления клиенту в ЛК</span><span class="task-desc">Блок уведомлений под прогресс-баром: смена статуса, напоминания об оплате, запрос на загрузку документов.</span></li><li><span class="task-category" style="background:#0F6CA8;"></span><span class="task-title">Управление счетами</span><span class="task-desc">Выставить новый счёт, изменить сумму, разбить платеж на рассрочку.</span></li><li><span class="task-category" style="background:#0F6CA8;"></span><span class="task-title">Штрафы / Пени</span><span class="task-desc">Автоматическое начисление пени 3%/день при просрочке. Ручная корректировка.</span></li><li><span class="task-category" style="background:#5B2BC6;"></span><span class="task-title">Каналы уведомлений</span><span class="task-desc">Настройка способов получения уведомлений: Email, SMS, Telegram, push.</span></li></ul></td>
+                <td class="result-text">Уведомления в ЛК, управление счетами, штрафы, каналы уведомлений</td>
+                <td class="release-col">—</td>
+                <td class="status-warning">⏳ В плане</td>
+            </tr>
+            <!-- Спринт 9 -->
+            <tr>
+                <td class="sprint-title"><span class="sprint-badge">Спр.9</span></td>
+                <td class="date-col">5–18 августа 2026<br><span class="duration">2 недели</span></td>
+                <td><ul class="tasks-list"><li><span class="task-category" style="background:#5B2BC6;"></span><span class="task-title">Обратная связь и Отзывы</span><span class="task-desc">Форма сбора обратной связи. Возможность оставить публичный отзыв (с согласия клиента).</span></li><li><span class="task-category" style="background:#5B2BC6;"></span><span class="task-title">Настройки ЛК</span><span class="task-desc">Управление уведомлениями, смена пароля, редактирование контактов.</span></li><li><span class="task-category" style="background:#5B2BC6;"></span><span class="task-title">Иконка «На главный»</span><span class="task-desc">«Добавить на главный экран» для быстрого доступа с мобильного устройства.</span></li><li><span class="task-category" style="background:#D97706;"></span><span class="task-title">Отзывы → Битрикс</span><span class="task-desc">Отправка отзывов клиентов в Битрикс для аналитики.</span></li></ul></td>
+                <td class="result-text">Обратная связь, отзывы, настройки ЛК</td>
+                <td class="release-col">—</td>
+                <td class="status-warning">⏳ В плане</td>
+            </tr>
+            <!-- Спринт 10 -->
+            <tr>
+                <td class="sprint-title"><span class="sprint-badge">Спр.10</span></td>
+                <td class="date-col">19 авг – 8 сен 2026<br><span class="duration">3 недели</span></td>
+                <td><ul class="tasks-list">
+                        <li><span class="task-category" style="background:#10B981;"></span><span class="task-title">Доработки для отдела Сопровождения</span><span class="task-desc">Управление договорами, коммуникация, отслеживание статусов.</span></li>
+                        <li><span class="task-category" style="background:#0F6CA8;"></span><span class="task-title">Генерация документов в суд</span><span class="task-desc">Формирование пакета документов для суда (заявление, опись кредиторов, опись имущества) через Админ-панель сотрудников.</span></li>
+                    </ul></td>
+                <td class="result-text">Доработки отдела сопровождения + генерация судебных документов через админку</td>
+                <td class="release-col">—</td>
+                <td class="status-warning">⏳ В плане</td>
+            </tr>
+            <!-- Спринт 11 -->
+            <tr>
+                <td class="sprint-title"><span class="sprint-badge">Спр.11</span></td>
+                <td class="date-col">9–29 сен 2026<br><span class="duration">3 недели</span></td>
+                <td><ul class="tasks-list"><li><span class="task-category" style="background:#0F6CA8;"></span><span class="task-title">Лента событий</span><span class="task-desc">Хронология всех действий и изменений по делу клиента.</span></li><li><span class="task-category" style="background:#0F6CA8;"></span><span class="task-title">Архив документов</span><span class="task-desc">Хранилище всех версий документов с поиском.</span></li></ul></td>
+                <td class="result-text">Лента событий + архив документов</td>
+                <td class="release-col">—</td>
+                <td class="status-warning">⏳ В плане</td>
+            </tr>
+            <!-- Спринт 12 -->
+            <tr>
+                <td class="sprint-title"><span class="sprint-badge">Спр.12</span></td>
+                <td class="date-col">30 сен – 21 окт 2026<br><span class="duration">3 недели</span></td>
+                <td><ul class="tasks-list"><li><span class="task-category" style="background:#0F6CA8;"></span><span class="task-title">Модуль задач для сотрудников</span><span class="task-desc">Лента задач с приоритетами: проверка документов, подтверждение оплаты, распределение платежей, проверка заявления. Логирование действий.</span></li></ul></td>
+                <td class="result-text">Модуль задач для сотрудников</td>
+                <td class="release-col">—</td>
+                <td class="status-warning">⏳ В плане</td>
+            </tr>
+            <!-- Спринт 13 -->
+            <tr>
+                <td class="sprint-title"><span class="sprint-badge">Спр.13</span></td>
+                <td class="date-col">22 окт – 11 ноя 2026<br><span class="duration">3 недели</span></td>
+                <td><ul class="tasks-list"><li><span class="task-category" style="background:#0F6CA8;"></span><span class="task-title">Дашборд руководителя</span><span class="task-desc">Статистика по клиентам: всего, в работе, на этапах, конверсия, оплаты.</span></li><li><span class="task-category" style="background:#0F6CA8;"></span><span class="task-title">Аналитика по рекомендациям</span><span class="task-desc">Статистика по клиентам из рекомендаций: количество, конверсия, бонусы.</span></li></ul></td>
+                <td class="result-text">Дашборд руководителя + аналитика</td>
+                <td class="release-col">—</td>
+                <td class="status-warning">⏳ В плане</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="total-duration">
+        Общая длительность проекта: с 10 марта по 11 ноября 2026 = ~8 месяцев (35 недель)
+    </div>
+
+    <!-- Gantt диаграмма -->
+    <div class="gantt-section">
+        <div class="gantt-title">Дорожная карта по месяцам (Gantt-диаграмма)</div>
+        <div class="gantt-wrapper">
+            <table class="gantt-matrix">
+                <thead><tr><th style="width:80px">Спринт</th><th>Март</th><th>Апрель</th><th>Май</th><th>Июнь</th><th>Июль</th><th>Август</th><th>Сентябрь</th><th>Октябрь</th><th>Ноябрь</th></tr></thead>
+                <tbody>
+                    <tr><td>Спр.1</td><td><div class="dev-box dev-lk" data-tooltip="Регистрация, лендинг, анкета"></div><div class="dev-box dev-integration" data-tooltip="SMS, передача в Битрикс"></div></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>Спр.2</td><td></td><td><div class="dev-box dev-admin" data-tooltip="Экран Клиенты, карточка"></div><div class="dev-box dev-integration" data-tooltip="Статусы из Битрикс"></div></td><td></td><td></td><td></td><td></td><td></td><td></td><td>\n</tr><tr><td colspan="10" class="result-text">...</td></tr> <tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
